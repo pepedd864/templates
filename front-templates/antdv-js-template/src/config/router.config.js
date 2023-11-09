@@ -1,0 +1,39 @@
+import BasicLayout from '@/layouts/BasicLayout.vue'
+import AuthLayout from '@/layouts/AuthLayout.vue'
+
+export const constantRouterMap = [
+  {
+    name: 'basicLayout',
+    path: '/',
+    redirect: '/dashboard',
+    component: BasicLayout,
+    children: []
+  },
+  {
+    name: 'authLayout',
+    path: '/auth',
+    component: AuthLayout,
+    redirect: '/auth/login',
+    hidden: true,
+    children: [
+      {
+        name: 'login',
+        path: '/auth/login',
+        component: () => import('@/views/auth/login/index.vue')
+      }
+    ]
+  }
+]
+export function getAsyncRouterMap() {
+  return [
+    {
+      name: '产品列表',
+      path: '/dashboard',
+      meta: {
+        icon: 'TaobaoCircleOutlined',
+        title: '产品列表'
+      },
+      component: () => import('@/views/dashboard/index.vue')
+    }
+  ]
+}
